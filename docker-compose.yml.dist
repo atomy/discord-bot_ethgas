@@ -4,4 +4,4 @@ services:
   eth-discord-bot:
     image: xxx.dkr.ecr.eu-central-1.amazonaws.com/atomy/discord-bot_ethgas:latest
     environment:
-      - DISCORD_API_KEY=nnn
+      - DISCORD_API_KEY=yyy
