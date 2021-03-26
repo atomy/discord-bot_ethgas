@@ -27,6 +27,11 @@ if [ -z "${DEPLOY_HOST}" ] ; then
   exit 1
 fi
 
+if [ -z "${DISCORD_API_KEY}" ] ; then
+  echo "ENV: DISCORD_API_KEY is missing!"
+  exit 1
+fi
+
 rm -f scripts/build.sh
 rm -f scripts/push.sh
 rm -f scripts/deploy.sh

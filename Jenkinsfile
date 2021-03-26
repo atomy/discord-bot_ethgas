@@ -12,7 +12,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'ecr-prefix', variable: 'ECR_PREFIX'),
                     string(credentialsId: 'discord-webhook-release-url', variable: 'DISCORD_WEBHOOK_URL'),
-                    string(credentialsId: 'ethgas-discord-ethgas-bot-key', variable: 'DISCORD_ETHGAS_API_KEY'),
+                    string(credentialsId: 'ethgas-discord-bot-key', variable: 'DISCORD_API_KEY'),
                     string(credentialsId: 'ethgas-discord-bot-deploy-host', variable: 'DEPLOY_HOST'),
                     string(credentialsId: 'ethgas-discord-bot-deploy-login', variable: 'DEPLOY_LOGIN'),]) {
                         echo 'Configuring...'
