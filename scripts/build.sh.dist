@@ -2,6 +2,6 @@
 
 set -e
 
-docker build -f scripts/Dockerfile -t atomy/discord-bot_cryptocoin:latest .
+docker build -f scripts/Dockerfile -t atomy/discord-bot_ethgas:latest .
 
-docker tag atomy/discord-bot_cryptocoin:latest xxx.dkr.ecr.eu-central-1.amazonaws.com/atomy/discord-bot_cryptocoin:latest
+docker tag atomy/discord-bot_ethgas:latest xxx.dkr.ecr.eu-central-1.amazonaws.com/atomy/discord-bot_ethgas:latest
