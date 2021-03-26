@@ -37,7 +37,7 @@ function callback(res) {
             console.log("[FAST] " + fastGwei + " gwei");
             console.log("[INSTANT] " + instantGwei + " gwei");
             client.user.setActivity(
-                'S: ' + slowGwei + ' N: ' + normalGwei + ' F: ' + fastGwei + ' I: ' + instantGwei + ' -- SLOW / NORMAL / FAST / INSTANT',
+                slowGwei + '/' + normalGwei + '/' + fastGwei + '/' + instantGwei + ' -- SLOW / NORMAL / FAST / INSTANT',
                 { type: 'WATCHING' }
             );
         });
