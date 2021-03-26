@@ -34,7 +34,7 @@ rm -f docker-compose.yml
 
 cp docker-compose.yml.dist docker-compose.yml
 sed -i "s|xxx.dkr.ecr.eu-central-1.amazonaws.com|${ECR_PREFIX}|" docker-compose.yml
-sed -i "s|yyy|${DISCORD_BITCOIN_API_KEY}|" docker-compose.yml
+sed -i "s|yyy|${DISCORD_API_KEY}|" docker-compose.yml
 
 cp scripts/build.sh.dist scripts/build.sh
 sed -i "s|xxx.dkr.ecr.eu-central-1.amazonaws.com|${ECR_PREFIX}|" scripts/build.sh

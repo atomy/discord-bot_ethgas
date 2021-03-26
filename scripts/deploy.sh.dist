@@ -3,7 +3,5 @@
 set -e
 
 scp ~/.docker/config.json app@1.1.1.1:~/.docker/config.json
-scp docker-compose-bitcoin.yml app@1.1.1.1:/home/app/apps/stuff.prod.google.com/
-scp docker-compose-ethereum.yml app@1.1.1.1:/home/app/apps/stuff.prod.google.com/
-ssh app@1.1.1.1 "cd /home/app/apps/stuff.prod.google.com && docker-compose -f docker-compose-bitcoin.yml pull && docker-compose -f docker-compose-bitcoin.yml up -d"
-ssh app@1.1.1.1 "cd /home/app/apps/stuff.prod.google.com && docker-compose -f docker-compose-ethereum.yml pull && docker-compose -f docker-compose-ethereum.yml up -d"
+scp docker-compose.yml app@1.1.1.1:/home/app/apps/stuff.prod.google.com/
+ssh app@1.1.1.1 "cd /home/app/apps/stuff.prod.google.com && docker-compose -f docker-compose.yml pull && docker-compose -f docker-compose.yml up -d"
