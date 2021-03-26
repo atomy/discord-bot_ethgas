@@ -12,9 +12,9 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'ecr-prefix', variable: 'ECR_PREFIX'),
                     string(credentialsId: 'discord-webhook-release-url', variable: 'DISCORD_WEBHOOK_URL'),
-                    string(credentialsId: 'cryptocoin-discord-ethgas-bot-key', variable: 'DISCORD_ETHGAS_API_KEY'),
-                    string(credentialsId: 'cryptocoin-discord-bot-deploy-host', variable: 'DEPLOY_HOST'),
-                    string(credentialsId: 'cryptocoin-discord-bot-deploy-login', variable: 'DEPLOY_LOGIN'),]) {
+                    string(credentialsId: 'ethgas-discord-ethgas-bot-key', variable: 'DISCORD_ETHGAS_API_KEY'),
+                    string(credentialsId: 'ethgas-discord-bot-deploy-host', variable: 'DEPLOY_HOST'),
+                    string(credentialsId: 'ethgas-discord-bot-deploy-login', variable: 'DEPLOY_LOGIN'),]) {
                         echo 'Configuring...'
                         sh './scripts/configure.sh'
                         echo 'Configuring...DONE'
