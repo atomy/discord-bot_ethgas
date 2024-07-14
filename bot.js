@@ -1,7 +1,9 @@
-const fetch = require('node-fetch');
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits, Events, ActivityType } = require('discord.js');
+const discordClient = new Client({ intents: [
+        GatewayIntentBits.Guilds,
+    ]
+});
 
-const client = new Discord.Client();
 require('console-stamp')(console, 'HH:MM:ss.l');
 
 if (!process.env.DISCORD_API_KEY || process.env.DISCORD_API_KEY.length <= 0) {
@@ -10,16 +12,22 @@ if (!process.env.DISCORD_API_KEY || process.env.DISCORD_API_KEY.length <= 0) {
 }
 
 const discordApiKey = process.env.DISCORD_API_KEY;
+discordClientRef = discordClient;
+discordClientRef.login(discordApiKey)
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setActivity('? USD', { type: 'WATCHING' } );
+discordClientRef.once(Events.ClientReady, readyClient => {
+    console.log(`Logged in as ${readyClient.user.tag}!`);
+    discordClientRef.user.setPresence({
+        activities: [{ name: '?', type: ActivityType.Watching }],
+        status: 'online'
+    });
+
     fetch(options.url)
         .then(callback);
 });
 
 const options = {
-    url: 'http://ethgas.watch/api/gas'
+    url: 'https://api.etherscan.io/api?module=gastracker&action=gasoracle'
 };
 
 function callback(res) {
@@ -27,22 +35,23 @@ function callback(res) {
 
     if (res.ok) {
         res.json().then(function onData(jsonObject) {
-            const slowGwei = jsonObject.slow.gwei;
-            const normalGwei = jsonObject.normal.gwei;
-            const fastGwei = jsonObject.fast.gwei;
-            const instantGwei = jsonObject.instant.gwei;
+            const slowGwei = jsonObject.result.SafeGasPrice;
+            const normalGwei = jsonObject.result.ProposeGasPrice;
+            const fastGwei = jsonObject.result.FastGasPrice;
 
             console.log("[SLOW] " + slowGwei + " gwei");
             console.log("[NORMAL] " + normalGwei + " gwei");
             console.log("[FAST] " + fastGwei + " gwei");
-            console.log("[INSTANT] " + instantGwei + " gwei");
-            client.user.setActivity(
-                slowGwei + '/' + normalGwei + '/' + fastGwei + '/' + instantGwei + ' -- SLOW / NORMAL / FAST / INSTANT',
-                { type: 'WATCHING' }
-            );
+            discordClientRef.user.setPresence({
+                activities: [{ name: slowGwei + '/' + normalGwei + '/' + fastGwei + ' -- SLOW / NORMAL / FAST', type: ActivityType.Watching }],
+                status: 'online'
+            });
         });
     } else {
-        client.user.setActivity('?', { type: 'WATCHING' } );
+        discordClientRef.user.setPresence({
+            activities: [{ name: '?', type: ActivityType.Watching }],
+            status: 'online'
+        });
     }
 }
 
@@ -52,5 +61,5 @@ setInterval(function() {
         .then(callback);
 }, 1000*300);
 
-console.log("Logging in with: " + discordApiKey);
-client.login(discordApiKey);
+console.log("Logging in...");
+discordClientRef.login(discordApiKey);
