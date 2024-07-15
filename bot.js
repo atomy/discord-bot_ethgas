@@ -22,8 +22,12 @@ discordClientRef.once(Events.ClientReady, readyClient => {
         status: 'online'
     });
 
-    fetch(options.url)
-        .then(callback);
+    try {
+        fetch(options.url)
+            .then(callback);
+    } catch (exception) {
+        console.log(`ERROR: ${exception}`);
+    }
 });
 
 const options = {
@@ -57,8 +61,13 @@ function callback(res) {
 
 setInterval(function() {
     console.log("Requesting... " + options.url);
-    fetch(options.url)
-        .then(callback);
+
+    try {
+        fetch(options.url)
+            .then(callback);
+    } catch (exception) {
+        console.log(`ERROR: ${exception}`);
+    }
 }, 1000*300);
 
 console.log("Logging in...");
