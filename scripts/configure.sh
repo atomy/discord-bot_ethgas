@@ -32,6 +32,11 @@ if [ -z "${DISCORD_API_KEY}" ] ; then
   exit 1
 fi
 
+if [ -z "${ETHGAS_API_KEY}" ] ; then
+  echo "ENV: ETHGAS_API_KEY is missing!"
+  exit 1
+fi
+
 rm -f scripts/build.sh
 rm -f scripts/push.sh
 rm -f scripts/deploy.sh
@@ -40,6 +45,7 @@ rm -f docker-compose.yml
 cp docker-compose.yml.dist docker-compose.yml
 sed -i "s|xxx.dkr.ecr.eu-central-1.amazonaws.com|${ECR_PREFIX}|" docker-compose.yml
 sed -i "s|yyy|${DISCORD_API_KEY}|" docker-compose.yml
+sed -i "s|zzz|${ETHGAS_API_KEY}|" docker-compose.yml
 
 cp scripts/build.sh.dist scripts/build.sh
 sed -i "s|xxx.dkr.ecr.eu-central-1.amazonaws.com|${ECR_PREFIX}|" scripts/build.sh

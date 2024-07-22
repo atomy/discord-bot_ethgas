@@ -11,7 +11,14 @@ if (!process.env.DISCORD_API_KEY || process.env.DISCORD_API_KEY.length <= 0) {
     process.exit(1);
 }
 
+if (!process.env.ETHGAS_API_KEY || process.env.ETHGAS_API_KEY.length <= 0) {
+    console.log('ERROR: Env variable ETHGAS_API_KEY does not exists or is empty!');
+    process.exit(1);
+}
+
 const discordApiKey = process.env.DISCORD_API_KEY;
+const ethgasApiKey = process.env.ETHGAS_API_KEY;
+
 discordClientRef = discordClient;
 discordClientRef.login(discordApiKey)
 
@@ -31,7 +38,7 @@ discordClientRef.once(Events.ClientReady, readyClient => {
 });
 
 const options = {
-    url: 'https://api.etherscan.io/api?module=gastracker&action=gasoracle'
+    url: 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=' + ethgasApiKey,
 };
 
 function callback(res) {
