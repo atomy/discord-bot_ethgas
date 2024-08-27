@@ -46,15 +46,20 @@ function callback(res) {
 
     if (res.ok) {
         res.json().then(function onData(jsonObject) {
-            const slowGwei = jsonObject.result.SafeGasPrice;
-            const normalGwei = jsonObject.result.ProposeGasPrice;
-            const fastGwei = jsonObject.result.FastGasPrice;
+            // Extract the gas prices and round them to one decimal place
+            const slowGwei = parseFloat(jsonObject.result.SafeGasPrice).toFixed(1);
+            const normalGwei = parseFloat(jsonObject.result.ProposeGasPrice).toFixed(1);
+            const fastGwei = parseFloat(jsonObject.result.FastGasPrice).toFixed(1);
 
             console.log("[SLOW] " + slowGwei + " gwei");
             console.log("[NORMAL] " + normalGwei + " gwei");
             console.log("[FAST] " + fastGwei + " gwei");
+
             discordClientRef.user.setPresence({
-                activities: [{ name: slowGwei + '/' + normalGwei + '/' + fastGwei + ' -- SLOW / NORMAL / FAST', type: ActivityType.Watching }],
+                activities: [{
+                    name: slowGwei + '/' + normalGwei + '/' + fastGwei + ' -- SLOW / NORMAL / FAST',
+                    type: ActivityType.Watching
+                }],
                 status: 'online'
             });
         });
